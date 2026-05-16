@@ -1,0 +1,33 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net10.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="../../NetBlocks/Models.Shared/Models.Shared.csproj" />
+      <PackageReference Include="Cerebellum.NetBlocks" Version="10.2.0" />
+    </ItemGroup>
+
+  <PropertyGroup>
+    <PackageId>Cerebellum.BlazorBlocks.Data</PackageId>
+    <Version>1.0.0</Version>
+    <Authors>Daniel Harvey</Authors>
+    <Company>Cerebellum Softworks</Company>
+    <PackageLicenseExpression>AGPL-3.0-or-later</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/daniel-c-harvey/BlazorBlocks</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/daniel-c-harvey/BlazorBlocks.git</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+  </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Microsoft.EntityFrameworkCore" Version="10.0.7" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="10.0.7" />
+      <!-- Intentional: DbExceptionClassifier is Postgres-specific (SqlState/ConstraintName).
+           See SkipperHaven/PLAN.md "Error Propagation Architecture — Where translation happens". -->
+      <PackageReference Include="Npgsql" Version="10.0.2" />
+    </ItemGroup>
+
+</Project>

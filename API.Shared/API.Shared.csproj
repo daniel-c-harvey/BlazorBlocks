@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net10.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Data.Shared\Data.Shared.csproj" />
+      <ProjectReference Include="../../NetBlocks/Models.Shared/Models.Shared.csproj" />
+    </ItemGroup>
+
+  <PropertyGroup>
+    <PackageId>Cerebellum.BlazorBlocks.Api</PackageId>
+    <Version>1.0.0</Version>
+    <Authors>Daniel Harvey</Authors>
+    <Company>Cerebellum Softworks</Company>
+    <PackageLicenseExpression>AGPL-3.0-or-later</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/daniel-c-harvey/BlazorBlocks</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/daniel-c-harvey/BlazorBlocks.git</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+  </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.3.0" />
+    </ItemGroup>
+
+</Project>

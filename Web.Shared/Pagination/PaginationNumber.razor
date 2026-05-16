@@ -1,0 +1,34 @@
+﻿@using System.Text
+
+@{
+    StringBuilder sb = new();
+    if (Active)
+    {
+        sb.Append(" active");
+    }
+    if (Disabled)
+    {
+        sb.Append(" disabled");
+    }
+    string css = sb.ToString();
+}
+
+<li class="page-item @css">
+    <a class="page-link" @onclick="async _ => await OnClick.InvokeAsync(int.Parse(PageLabel))">
+        <label>@PageLabel</label>
+    </a>
+</li>
+
+
+@code {
+    [Parameter]
+    public required string PageLabel { get; set; }
+    [Parameter] 
+    public required bool Active { get; set; } = false;
+    [Parameter] 
+    public bool Spacer { get; set; } = false;
+    [Parameter]
+    public EventCallback<int> OnClick { get; set; }
+
+    private bool Disabled => Spacer;
+}

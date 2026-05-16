@@ -1,0 +1,117 @@
+﻿@using Microsoft.AspNetCore.Components.Forms
+
+<div class="d-flex justify-content-between align-items-center">
+    <div class="flex-fill"></div>
+    <nav class="flex-fill d-flex justify-content-center">
+        <ul class="pagination mb-0">
+            <PaginationArrow OnClick="() => PreviousPage()"
+                             Direction="ArrowDirection.Left"
+                             Disabled="Page <= 1"/>
+
+            @foreach (int page in Pages)
+            {
+                (string label, bool spacer) = ConfigureNumber(page);
+
+                <PaginationNumber OnClick="ChangePage"
+                                  Active="Page == page && !spacer"
+                                  Spacer="spacer"
+                                  PageLabel="@label"/>
+            }
+
+            <PaginationArrow OnClick="() => NextPage()"
+                             Direction="ArrowDirection.Right"
+                             Disabled="Page >= PageCount"/>
+        </ul>
+    </nav>
+    <div class="flex-fill d-flex justify-content-end">
+        <InputSelect class="form-select w-auto" TValue="int" Value="PageSize" ValueChanged="PageSizeChanged" ValueExpression="() => PageSize">
+            @foreach (int pageSize in PageSizes)
+            { 
+                <option checked="@(PageSize == pageSize)" value="@pageSize">
+                    @pageSize
+                </option>
+            }
+        </InputSelect>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public required int Page { get; set; }
+    
+    [Parameter]
+    public required int PageCount { get; set; }
+    
+    [Parameter] 
+    public int PageSize { get; set; } = 10;
+    
+    [Parameter] 
+    public required EventCallback<int> PageChanged { get; set; }
+    
+    [Parameter] 
+    public required EventCallback<int> PageSizeChanged { get; set; }
+
+    private const int MAX_PAGES = 11;
+    private const int SCROLL_POINT = 5;
+    private int ScrollOffset { get; set; } = 0;
+    private IEnumerable<int> Pages { get; set; } = [1];
+    private static readonly IEnumerable<int> PageSizes = [5, 10, 15, 30, 50];
+
+    protected override void OnInitialized()
+    {
+        RefreshPageRange();
+    }
+
+    private async Task PreviousPage()
+    {
+        Page -= 1;
+        RefreshPageRange();
+        await PageChanged.InvokeAsync(Page);
+    }
+
+    private async Task NextPage()
+    {
+        Page += 1;
+        RefreshPageRange();
+        await PageChanged.InvokeAsync(Page); 
+    }
+
+    private async Task ChangePage(int page)
+    {
+        Page = page;
+        RefreshPageRange();
+        await PageChanged.InvokeAsync(Page);
+    }
+
+    private void RefreshPageRange()
+    {
+        ScrollOffset = Page > MAX_PAGES - SCROLL_POINT 
+                        ? Math.Min(PageCount - (MAX_PAGES - ScrollOffset), Page - (MAX_PAGES - SCROLL_POINT))
+                        : 0;
+        Pages = Enumerable.Range(1 + ScrollOffset, Math.Min(MAX_PAGES, PageCount));
+    }
+
+    private (string, bool) ConfigureNumber(int page)
+    {
+        int MAX = MAX_PAGES + ScrollOffset;
+        int MIN = 1 + ScrollOffset;
+
+        if (MAX < PageCount && page == MAX)
+        { 
+            return (PageCount.ToString(), false);
+        }
+        else if ((MAX < PageCount && page == MAX - 1) || (ScrollOffset > 0 && page == MIN + 1))
+        {
+            return ("...", true);
+        }
+        else if (ScrollOffset > 0 && page == MIN)
+        { 
+            return ("1", false);
+        }
+        else
+        {
+            return (page.ToString(), false);
+        }
+    }
+
+}

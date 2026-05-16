@@ -1,0 +1,35 @@
+.center {
+    margin: auto;
+    width: 100px;
+}
+
+.spinner {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    position: relative;
+}
+
+    .spinner::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        background: conic-gradient( from 0deg, transparent 0%, transparent 10%, rgba(15, 167, 148, 0.3) 35%, rgba(15, 167, 148, 0.7) 65%, #0fa794 100% );
+        mask: radial-gradient(transparent 55%, white 55.5%);
+        -webkit-mask: radial-gradient(transparent 55%, white 55.5%);
+        animation: rotate 1.429s linear infinite;
+    }
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}

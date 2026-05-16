@@ -1,0 +1,30 @@
+﻿@using System.Text
+@{
+    string css = Disabled ? " disabled" : string.Empty;
+}
+    
+
+<li class="page-item @css">
+    @if (Direction == ArrowDirection.Left)
+    {
+        <a class="page-link" aria-label="Previous" @onclick="_ => OnClick.InvokeAsync()">
+            <span class="bi bi-arrow-left" aria-hidden="true"></span>
+        </a>
+    }
+    else
+    {
+        <a class="page-link" aria-label="Next" @onclick="_ => OnClick.InvokeAsync()">
+            <span class="bi bi-arrow-right" aria-hidden="true"></span>
+        </a>
+    }
+</li>
+
+
+@code {
+    [Parameter]
+    public required ArrowDirection Direction { get; set; }
+    [Parameter] 
+    public required bool Disabled { get; set; } = true;
+    [Parameter]
+    public EventCallback OnClick { get; set; }
+}

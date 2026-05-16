@@ -1,0 +1,58 @@
+﻿@using NetBlocks.Models
+@using Web.Shared.UI
+@using Web.Shared.Result
+
+@typeparam TResult where TResult : ResultBase<TResult>, new()
+
+<MudDialog>
+    <DialogContent>    
+        @if (!ResultTask.IsCompleted || Result is null)
+        {
+            <MudContainer Class="justify-content-center ma-auto pa-4">
+                <Spinner />
+            </MudContainer>
+        }
+        else if (Result.Success)
+        {
+            @Success(Result)
+        }
+        else
+        {
+            @Failure(Result)
+        }
+    </DialogContent>
+    <DialogActions>
+        <MudButton Color="Color.Primary" Variant="Variant.Filled" OnClick="Close" Disabled="@(Result is null)">Close</MudButton>
+    </DialogActions>
+</MudDialog>
+
+@code {
+    [CascadingParameter]
+    private IMudDialogInstance MudDialog { get; set; } = null!;
+
+    [Parameter] 
+    public required Task<TResult> ResultTask { get; set; }
+    
+    [Parameter]
+    public required RenderFragment<TResult> Success { get; set; }
+    
+    [Parameter]
+    public required RenderFragment<TResult> Failure { get; set; }
+    
+    [Parameter]
+    public required TResult? Result { get; set; } = null;
+    [Parameter]
+    public required EventCallback<TResult?> ResultChanged { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        Result = await ResultTask;
+        await ResultChanged.InvokeAsync(Result);
+    }
+
+    private void Close()
+    {
+        if (Result is null) return;
+        MudDialog.Close(DialogResult.Ok<TResult>(Result));
+    }
+}

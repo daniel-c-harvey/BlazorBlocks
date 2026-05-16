@@ -1,0 +1,65 @@
+@if (IsVisible)
+{
+    <div class="modal  fade show d-block" tabindex="-1" style="background-color: rgba(0,0,0,0.5);">
+        <div class="modal-dialog @SizeClass">
+            <div class="modal-content">
+                @if (!string.IsNullOrEmpty(Title))
+                {
+                    <div class="modal-header">
+                        <h5 class="modal-title">@Title</h5>
+                        @if (ShowCloseButton)
+                        {
+                            <input type="button" class="btn-close" @onclick="Close" />
+                        }
+                    </div>
+                }
+                <div class="modal-body">
+                    @ChildContent
+                </div>
+                @if (ShowFooter)
+                {
+                    <div class="modal-footer">
+                        @FooterContent
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+}
+
+@code {
+    [Parameter] public bool IsVisible { get; set; }
+    [Parameter] public EventCallback<bool> IsVisibleChanged { get; set; }
+    [Parameter] public required RenderFragment? ChildContent { get; set; }
+    [Parameter] public RenderFragment? FooterContent { get; set; }
+    [Parameter] public required string? Title { get; set; }
+    [Parameter] public bool ShowCloseButton { get; set; } = true;
+    [Parameter] public bool ShowFooter { get; set; } = false;
+    [Parameter] public ModalSize Size { get; set; } = ModalSize.Default;
+
+    private string SizeClass => Size switch
+    {
+        ModalSize.Small => "modal-sm",
+        ModalSize.Large => "modal-lg",
+        ModalSize.ExtraLarge => "modal-xl",
+        _ => ""
+    };
+
+    public async Task Open()
+    {
+        IsVisible = true;
+        Console.WriteLine("opening");
+        await IsVisibleChanged.InvokeAsync(IsVisible);
+    }
+
+    private async Task Close()
+    {
+        IsVisible = false;
+        Console.WriteLine("closing");
+        StateHasChanged();
+        await IsVisibleChanged.InvokeAsync(IsVisible);
+    }
+
+
+}
+

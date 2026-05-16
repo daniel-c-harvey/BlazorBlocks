@@ -1,0 +1,16 @@
+@using NetBlocks.Models
+
+@typeparam TResult where TResult : ResultBase<TResult>, new()
+
+
+<ul>
+    @foreach (ResultMessage message in Result.Messages)
+    {
+        <li>@message.Message</li>
+    }
+</ul>
+
+@code {
+    [Parameter]
+    public required TResult Result { get; set; }
+}
