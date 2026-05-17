@@ -8,6 +8,7 @@
 
     <ItemGroup>
       <PackageReference Include="Cerebellum.NetBlocks" Version="10.3.0" />
+      <PackageReference Include="Cerebellum.NetBlocks.Models" Version="10.3.0" />
     </ItemGroup>
 
   <PropertyGroup>
