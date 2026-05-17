@@ -34,14 +34,16 @@ foreach ($proj in $projects) {
 Write-Host "Pushing all packages to nuget.org..."
 dotnet nuget push "$OutputDir/*.nupkg" `
     --api-key $ApiKey `
-    --source https://api.nuget.org/v3/index.json `
-    --skip-duplicate
+    --source https://api.nuget.org/v3/index.json
 if ($LASTEXITCODE -ne 0) {
     throw "dotnet nuget push failed (exit code $LASTEXITCODE)"
 }
 
+$csproj = [xml](Get-Content 'Data.Shared/Data.Shared.csproj')
+$Version = $csproj.Project.PropertyGroup | Where-Object { $_.Version } | Select-Object -ExpandProperty Version
+
 Write-Host ""
 Write-Host "Done. Packages pushed successfully:"
-Write-Host "  Cerebellum.BlazorBlocks.Data 1.0.0"
-Write-Host "  Cerebellum.BlazorBlocks.Api  1.0.0"
-Write-Host "  Cerebellum.BlazorBlocks.Web  1.0.0"
+Write-Host "  Cerebellum.BlazorBlocks.Data $Version"
+Write-Host "  Cerebellum.BlazorBlocks.Api  $Version"
+Write-Host "  Cerebellum.BlazorBlocks.Web  $Version"
