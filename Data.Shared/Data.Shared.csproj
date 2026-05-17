@@ -29,9 +29,6 @@
     <ItemGroup>
       <PackageReference Include="Microsoft.EntityFrameworkCore" Version="10.0.7" />
       <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="10.0.7" />
-      <!-- Intentional: DbExceptionClassifier is Postgres-specific (SqlState/ConstraintName).
-           See SkipperHaven/PLAN.md "Error Propagation Architecture — Where translation happens". -->
-      <PackageReference Include="Npgsql" Version="10.0.2" />
     </ItemGroup>
 
 

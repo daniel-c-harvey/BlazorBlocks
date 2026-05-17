@@ -15,18 +15,21 @@ where TEntity : class, IEntity
 {
     
     private TContext _context;
+    private readonly IDbExceptionClassifier? _classifier;
     protected ILogger<Repository<TContext,TEntity>> Logger;
     protected DbSet<TEntity> Set { get; private init; }
     protected IQueryable<TEntity> Query { get; init; }
 
-    public Repository(TContext context, 
+    public Repository(TContext context,
                       ILogger<Repository<TContext, TEntity>> logger,
-                      Func<IQueryable<TEntity>, IQueryable<TEntity>>? queryAdditions = null)
+                      Func<IQueryable<TEntity>, IQueryable<TEntity>>? queryAdditions = null,
+                      IDbExceptionClassifier? classifier = null)
     {
         _context = context;
         Logger = logger;
+        _classifier = classifier;
         Set = context.Set<TEntity>();
-        Query = queryAdditions != null 
+        Query = queryAdditions != null
             ? queryAdditions(Set.Where(e => !e.IsDeleted))
             : Set.Where(e => !e.IsDeleted);
     }
@@ -166,10 +169,18 @@ where TEntity : class, IEntity
         {
             // Translate the provider-specific failure into a structured error at the data
             // boundary. The classified payload is surfaced to the calling Manager via
-            // ClassifiedDbException; raw exception text never leaves this method.
+            // ClassifiedDbException; raw exception text never leaves this method. When no
+            // provider classifier is registered, fall back to a generic Unknown payload so
+            // callers still receive a structured error.
             _context.ChangeTracker.Clear();
             Logger.LogError(ex, "DbUpdateException during SaveChanges");
-            var classified = DbExceptionClassifier.Classify(ex, ConstraintRegistry);
+            var classified = _classifier?.Classify(ex, ConstraintRegistry)
+                ?? new ClassifiedDbError(
+                    Category: DbErrorCategory.Unknown,
+                    Code: IDbExceptionClassifier.UnknownCode,
+                    Field: null,
+                    ConstraintName: null,
+                    Message: "A database error occurred while saving changes.");
             throw new ClassifiedDbException(classified, ex);
         }
         catch (Exception ex)
