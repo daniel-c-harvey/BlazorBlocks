@@ -32,11 +32,14 @@ foreach ($proj in $projects) {
 
 # --- Push all packages ---
 Write-Host "Pushing all packages to nuget.org..."
-dotnet nuget push "$OutputDir/*.nupkg" `
-    --api-key $ApiKey `
-    --source https://api.nuget.org/v3/index.json
-if ($LASTEXITCODE -ne 0) {
-    throw "dotnet nuget push failed (exit code $LASTEXITCODE)"
+Get-ChildItem "$OutputDir/*.nupkg" | ForEach-Object {
+    Write-Host "Pushing $($_.Name)..."
+    dotnet nuget push $_.FullName `
+        --api-key $ApiKey `
+        --source https://api.nuget.org/v3/index.json
+    if ($LASTEXITCODE -ne 0) {
+        throw "dotnet nuget push failed for $($_.Name) (exit code $LASTEXITCODE)"
+    }
 }
 
 $csproj = [xml](Get-Content 'Data.Shared/Data.Shared.csproj')
