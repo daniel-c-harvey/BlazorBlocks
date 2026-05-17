@@ -1,14 +1,16 @@
+using Data.Shared.Errors;
 using Microsoft.EntityFrameworkCore;
 using Npgsql;
 
-namespace Data.Shared.Errors;
+namespace Data.Postgres;
 
 /// <summary>
-/// Translates EF / Npgsql write failures into a <see cref="ClassifiedDbError"/> at the
-/// data boundary. No raw provider exception text is included in the result — only the
-/// category, the constraint name (when present), and a safe user-facing message.
+/// Postgres-specific implementation of <see cref="IDbExceptionClassifier"/>. Inspects the
+/// inner-exception chain for a <see cref="PostgresException"/> and maps its SQLSTATE and
+/// constraint name onto the provider-agnostic <see cref="ClassifiedDbError"/> shape.
+/// Register as a singleton in DI; the class is stateless and thread-safe.
 /// </summary>
-public static class DbExceptionClassifier
+public sealed class PostgresDbExceptionClassifier : IDbExceptionClassifier
 {
     /// <summary>Default fallback code when no registry entry matches the violated constraint.</summary>
     public const string GenericConstraintCode = "constraint_violation";
@@ -19,12 +21,8 @@ public static class DbExceptionClassifier
     /// <summary>Code reported for EF optimistic-concurrency mismatches.</summary>
     public const string ConcurrencyCode = "concurrency_conflict";
 
-    /// <summary>
-    /// Classify a <see cref="DbUpdateException"/>. The optional <paramref name="constraintRegistry"/>
-    /// maps a provider constraint name (e.g. <c>IX_slips_SlipNumber</c>) to a product-specific
-    /// <c>(code, field)</c> pair; unmapped constraints fall back to a generic code.
-    /// </summary>
-    public static ClassifiedDbError Classify(
+    /// <inheritdoc />
+    public ClassifiedDbError Classify(
         DbUpdateException exception,
         IReadOnlyDictionary<string, (string Code, string? Field)>? constraintRegistry = null)
     {
