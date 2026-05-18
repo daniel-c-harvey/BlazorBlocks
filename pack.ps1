@@ -17,6 +17,7 @@ New-Item $OutputDir -ItemType Directory | Out-Null
 
 # --- Pack in dependency order ---
 $projects = @(
+    'Models.Shared/Models.Shared.csproj',     # Cerebellum.BlazorBlocks.Models (foundation, no intra-solution dependencies)
     'Data/Data.csproj',                       # Cerebellum.BlazorBlocks.Data
     'Data.Postgres/Data.Postgres.csproj',     # Cerebellum.BlazorBlocks.Data.Postgres (depends on Data)
     'API/API.csproj',                         # Cerebellum.BlazorBlocks.Api (depends on Data)
@@ -48,6 +49,7 @@ $Version = $csproj.Project.PropertyGroup | Where-Object { $_.Version } | Select-
 
 Write-Host ""
 Write-Host "Done. Packages pushed successfully:"
+Write-Host "  Cerebellum.BlazorBlocks.Models        $Version"
 Write-Host "  Cerebellum.BlazorBlocks.Data          $Version"
 Write-Host "  Cerebellum.BlazorBlocks.Data.Postgres $Version"
 Write-Host "  Cerebellum.BlazorBlocks.Api           $Version"
