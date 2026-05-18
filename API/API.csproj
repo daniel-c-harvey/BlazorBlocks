@@ -9,12 +9,12 @@
     <ItemGroup>
       <ProjectReference Include="..\Data\Data.csproj" />
       <ProjectReference Include="..\Models\Models.csproj" />
-      <PackageReference Include="Cerebellum.NetBlocks" Version="10.3.3" />
+      <PackageReference Include="Cerebellum.NetBlocks" Version="10.3.30" />
     </ItemGroup>
 
   <PropertyGroup>
     <PackageId>Cerebellum.BlazorBlocks.Api</PackageId>
-    <Version>10.3.3</Version>
+    <Version>10.3.30</Version>
     <Authors>Daniel Harvey</Authors>
     <Company>Cerebellum Softworks</Company>
     <Description>ASP.NET Core API shared layer for Cerebellum.NetBlocks-based projects. Provides base controllers, endpoint wiring, and request/response plumbing to reduce repetitive API scaffolding.</Description>
