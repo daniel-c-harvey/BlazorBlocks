@@ -1,4 +1,4 @@
-using Data.Shared.Errors;
+using Data.Errors;
 using Microsoft.EntityFrameworkCore;
 using Npgsql;
 

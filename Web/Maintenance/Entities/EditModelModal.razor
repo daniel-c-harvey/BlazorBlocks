@@ -1,0 +1,144 @@
+@typeparam TModel where TModel : new()
+@using Microsoft.AspNetCore.Components.Forms
+@using Web.Errors
+@implements IEditModal<TModel>
+
+
+<MudDialog>
+    <DialogContent>
+        @if (!string.IsNullOrEmpty(ForbiddenMessage))
+        {
+            <MudAlert Severity="Severity.Warning" Class="mb-3">@ForbiddenMessage</MudAlert>
+        }
+        <EditForm EditContext="editContext" FormName="edit-model">
+            <DataAnnotationsValidator/>
+            @ChildContent
+        </EditForm>
+    </DialogContent>
+    <DialogActions>
+        <MudButton Color="Color.Primary"
+                    Variant="Variant.Filled"
+                    OnClick="Cancel">
+            Cancel
+        </MudButton>
+        <MudButton Color="Color.Primary" Variant="Variant.Filled"
+                    OnClick="Submit"
+                    Disabled="@(!IsFormValid() || _submitting)">
+            Save
+        </MudButton>
+    </DialogActions>
+</MudDialog>
+
+@code {
+    [CascadingParameter]
+    private IMudDialogInstance MudDialog { get; set; } = null!;
+
+    [Inject]
+    public required ISnackbar Snackbar { get; set; }
+
+    [Inject]
+    public required EditModalSaveContextHolder SaveContextHolder { get; set; }
+
+    private IEditModalSaveContext? SaveContext => SaveContextHolder.Current;
+
+    [Parameter]
+    public required TModel Model { get; set; }
+
+    [Parameter]
+    public required RenderFragment ChildContent { get; set; }
+
+    private EditContext editContext = null!;
+    private ValidationMessageStore _serverMessages = null!;
+    private bool _submitting;
+
+    private string? ForbiddenMessage;
+
+    protected override void OnInitialized()
+    {
+        editContext = new EditContext(Model!);
+        _serverMessages = new ValidationMessageStore(editContext);
+        editContext.OnValidationStateChanged += ValidationEvent;
+        // Clear server-side messages whenever the user edits a field so a
+        // stale "duplicate" inline error disappears as soon as they type.
+        editContext.OnFieldChanged += (_, args) =>
+        {
+            _serverMessages.Clear(args.FieldIdentifier);
+            editContext.NotifyValidationStateChanged();
+        };
+    }
+
+    private void ValidationEvent(object? sender, ValidationStateChangedEventArgs args)
+    {
+        InvokeAsync(StateHasChanged);
+    }
+
+    private bool IsFormValid()
+    {
+        return !editContext.GetValidationMessages().Any();
+    }
+
+    private async Task Submit()
+    {
+        if (!editContext.Validate()) return;
+        if (_submitting) return;
+
+        // No save context cascaded — fall back to the legacy contract:
+        // close the dialog with the validated model and let the caller save.
+        if (SaveContext is null)
+        {
+            MudDialog.Close(DialogResult.Ok(Model));
+            return;
+        }
+
+        _submitting = true;
+        ForbiddenMessage = null;
+        try
+        {
+            var outcome = await SaveContext.SubmitAsync(Model!);
+
+            if (outcome.Success)
+            {
+                MudDialog.Close(DialogResult.Ok(Model));
+                return;
+            }
+
+            switch (FormErrorPresenter.Classify(outcome))
+            {
+                case FormErrorPresentation.InlineField:
+                    if (!FormErrorPresenter.ApplyFieldFailure(editContext, _serverMessages, outcome))
+                    {
+                        FormErrorPresenter.ShowSnackbar(Snackbar, outcome);
+                    }
+                    break;
+
+                case FormErrorPresentation.SnackbarError:
+                    FormErrorPresenter.ShowSnackbar(Snackbar, outcome);
+                    break;
+
+                case FormErrorPresentation.PageAlertWarning:
+                    ForbiddenMessage = outcome.Failures.Count > 0
+                        ? string.Join(" ", outcome.Failures.Select(f => f.Message))
+                        : "You do not have permission to perform this action.";
+                    break;
+
+                case FormErrorPresentation.ServerErrorModal:
+                    // Close the dialog and signal the host to show the
+                    // server-error modal — stacking a modal on a modal is
+                    // worse UX than the slight loss of in-progress form
+                    // state on a real 500.
+                    MudDialog.Close(DialogResult.Ok<WriteOutcome<object>>(outcome));
+                    return;
+            }
+        }
+        finally
+        {
+            _submitting = false;
+        }
+    }
+
+    private void Cancel()
+    {
+        MudDialog.Close(DialogResult.Cancel());
+    }
+
+}

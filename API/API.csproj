@@ -1,0 +1,40 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net10.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Data\Data.csproj" />
+      <PackageReference Include="Cerebellum.NetBlocks" Version="10.3.0" />
+      <PackageReference Include="Cerebellum.NetBlocks.Models" Version="10.3.0" />
+    </ItemGroup>
+
+  <PropertyGroup>
+    <PackageId>Cerebellum.BlazorBlocks.Api</PackageId>
+    <Version>10.3.1</Version>
+    <Authors>Daniel Harvey</Authors>
+    <Company>Cerebellum Softworks</Company>
+    <Description>ASP.NET Core API shared layer for Cerebellum.NetBlocks-based projects. Provides base controllers, endpoint wiring, and request/response plumbing to reduce repetitive API scaffolding.</Description>
+    <PackageTags>blazor;aspnetcore;dotnet;cerebellum;netblocks;api;controllers;rest</PackageTags>
+    <PackageIcon>icon.png</PackageIcon>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageLicenseExpression>AGPL-3.0-or-later</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/daniel-c-harvey/BlazorBlocks</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/daniel-c-harvey/BlazorBlocks.git</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+  </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.3.0" />
+    </ItemGroup>
+
+
+  <ItemGroup>
+    <None Include="..\csw-brain-4-favicon.png" Pack="true" PackagePath="icon.png" />
+    <None Include="..\README.md" Pack="true" PackagePath="README.md" />
+  </ItemGroup>
+
+</Project>

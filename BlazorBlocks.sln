@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35327.3
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data.Shared", "Data.Shared\Data.Shared.csproj", "{1A2B3C4D-5E6F-7890-A1B2-C3D4E5F6A7B8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data", "Data\Data.csproj", "{1A2B3C4D-5E6F-7890-A1B2-C3D4E5F6A7B8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "API.Shared", "API.Shared\API.Shared.csproj", "{2B3C4D5E-6F7A-8901-B2C3-D4E5F6A7B8C9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "API", "API\API.csproj", "{2B3C4D5E-6F7A-8901-B2C3-D4E5F6A7B8C9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web.Shared", "Web.Shared\Web.Shared.csproj", "{3C4D5E6F-7A8B-9012-C3D4-E5F6A7B8C9DA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web", "Web\Web.csproj", "{3C4D5E6F-7A8B-9012-C3D4-E5F6A7B8C9DA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data.Postgres", "Data.Postgres\Data.Postgres.csproj", "{B0BB5E33-AD22-4160-8173-CB2233ED80EB}"
 EndProject
