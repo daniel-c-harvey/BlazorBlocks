@@ -17,10 +17,10 @@ New-Item $OutputDir -ItemType Directory | Out-Null
 
 # --- Pack in dependency order ---
 $projects = @(
-    'Data.Shared/Data.Shared.csproj',         # Cerebellum.BlazorBlocks.Data
+    'Data/Data.csproj',                       # Cerebellum.BlazorBlocks.Data
     'Data.Postgres/Data.Postgres.csproj',     # Cerebellum.BlazorBlocks.Data.Postgres (depends on Data)
-    'API.Shared/API.Shared.csproj',           # Cerebellum.BlazorBlocks.Api (depends on Data)
-    'Web.Shared/Web.Shared.csproj'            # Cerebellum.BlazorBlocks.Web (depends on Api)
+    'API/API.csproj',                         # Cerebellum.BlazorBlocks.Api (depends on Data)
+    'Web/Web.csproj'                          # Cerebellum.BlazorBlocks.Web (depends on Api)
 )
 
 foreach ($proj in $projects) {
@@ -43,7 +43,7 @@ Get-ChildItem "$OutputDir/*.nupkg" | ForEach-Object {
     }
 }
 
-$csproj = [xml](Get-Content 'Data.Shared/Data.Shared.csproj')
+$csproj = [xml](Get-Content 'Data/Data.csproj')
 $Version = $csproj.Project.PropertyGroup | Where-Object { $_.Version } | Select-Object -ExpandProperty Version
 
 Write-Host ""
