@@ -1,34 +1,33 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net10.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <TargetFramework>net10.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Data\Data.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="10.0.7" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="10.0.7" />
-    <PackageReference Include="Npgsql" Version="10.0.2" />
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" />
   </ItemGroup>
 
   <PropertyGroup>
-    <PackageId>Cerebellum.BlazorBlocks.Data.Postgres</PackageId>
+    <PackageId>Cerebellum.BlazorBlocks.Models</PackageId>
     <Version>10.3.30</Version>
     <Authors>Daniel Harvey</Authors>
     <Company>Cerebellum Softworks</Company>
-    <Description>PostgreSQL provider plug-in for Cerebellum.BlazorBlocks.Data. Implements IDbExceptionClassifier using Npgsql to translate EF Core write failures into structured ClassifiedDbError values. Register PostgresDbExceptionClassifier via DI in your application startup.</Description>
-    <PackageTags>blazor;aspnetcore;dotnet;cerebellum;netblocks;ef-core;data;postgresql;npgsql;repository</PackageTags>
+    <Description>Generic model, entity, input-model, and converter abstractions that form the foundation of BlazorBlocks. Pure .NET, no framework dependencies.</Description>
+    <PackageTags>dotnet;blazor;models;entities;converters;ddd;cerebellum;blazorblocks</PackageTags>
     <PackageIcon>icon.png</PackageIcon>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageLicenseExpression>AGPL-3.0-or-later</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/daniel-c-harvey/BlazorBlocks</PackageProjectUrl>
     <RepositoryUrl>https://github.com/daniel-c-harvey/BlazorBlocks.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
+    <RepositoryBranch>main</RepositoryBranch>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
   </PropertyGroup>
 
   <ItemGroup>

@@ -1,0 +1,58 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+    <PropertyGroup>
+        <TargetFramework>net10.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+    </PropertyGroup>
+
+
+    <ItemGroup>
+        <SupportedPlatform Include="browser" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="10.0.7" />
+        <PackageReference Include="Microsoft.AspNetCore.WebUtilities" Version="10.0.7" />
+        <PackageReference Include="MudBlazor" Version="8.8.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <AdditionalFiles Include="Maintenance\Entities\ConfirmDeleteModal.razor" />
+      <AdditionalFiles Include="Maintenance\Entities\EditModelModal.razor" />
+      <AdditionalFiles Include="Maintenance\Entities\ModelView.razor" />
+      <AdditionalFiles Include="Maintenance\Entities\New\ModelSubmittedModal.razor" />
+      <AdditionalFiles Include="Maintenance\Entities\New\NewModelView.razor" />
+      <AdditionalFiles Include="Modal\Modal.razor" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Cerebellum.NetBlocks" Version="10.3.30" />
+      <ProjectReference Include="..\Models\Models.csproj" />
+    </ItemGroup>
+
+  <PropertyGroup>
+    <PackageId>Cerebellum.BlazorBlocks.Web</PackageId>
+    <Version>10.3.30</Version>
+    <Authors>Daniel Harvey</Authors>
+    <Company>Cerebellum Softworks</Company>
+    <Description>MudBlazor-based Blazor UI components for Cerebellum.NetBlocks-based applications. Includes entity management views, modals, and form scaffolding to accelerate building admin and CRUD interfaces.</Description>
+    <PackageTags>blazor;aspnetcore;dotnet;cerebellum;netblocks;mudblazor;ui;components;razor</PackageTags>
+    <PackageIcon>icon.png</PackageIcon>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageLicenseExpression>AGPL-3.0-or-later</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/daniel-c-harvey/BlazorBlocks</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/daniel-c-harvey/BlazorBlocks.git</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+  </PropertyGroup>
+
+    <ItemGroup>
+      <Folder Include="Maintenance\" />
+    </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\csw-brain-4-favicon.png" Pack="true" PackagePath="icon.png" />
+    <None Include="..\README.md" Pack="true" PackagePath="README.md" />
+  </ItemGroup>
+
+</Project>
