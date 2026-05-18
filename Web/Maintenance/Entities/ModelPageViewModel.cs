@@ -1,5 +1,5 @@
-﻿using Models.Shared.Common;
-using Models.Shared.Models;
+﻿using Models.Common;
+using Models.Models;
 using Web.ApiClients;
 using Web.Errors;
 

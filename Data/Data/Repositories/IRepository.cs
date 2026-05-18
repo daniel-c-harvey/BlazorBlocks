@@ -1,6 +1,6 @@
 using System.Linq.Expressions;
-using Models.Shared.Common;
-using Models.Shared.Entities;
+using Models.Common;
+using Models.Entities;
 using NetBlocks.Models;
 
 namespace Data.Data.Repositories;

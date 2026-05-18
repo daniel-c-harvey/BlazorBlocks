@@ -1,4 +1,4 @@
-namespace Models.Shared.Converters;
+namespace Models.Converters;
 
 public interface IConverter<T2, T1>
 {

@@ -1,10 +1,9 @@
 
-namespace Models.Shared.Entities;
+namespace Models.Models;
 
-public abstract class BaseEntity
+public abstract class BaseModel : IModel
 {
     public long Id { get; set; }
     public DateTime CreatedAt { get; set; }
     public DateTime UpdatedAt { get; set; }
-    public bool IsDeleted { get; set; }
 }

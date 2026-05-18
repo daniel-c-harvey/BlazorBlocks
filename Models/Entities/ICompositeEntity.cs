@@ -1,4 +1,4 @@
-namespace Models.Shared.Entities;
+namespace Models.Entities;
 
 public interface ICompositeEntity<TRoot, TDiscriminator, TInfo> : IKeyed
 where TRoot : ICompositeEntityRoot<TDiscriminator>

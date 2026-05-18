@@ -1,6 +1,6 @@
 using System.Linq.Expressions;
 
-namespace Models.Shared.Common;
+namespace Models.Common;
 
 public class PagingParameters
 {

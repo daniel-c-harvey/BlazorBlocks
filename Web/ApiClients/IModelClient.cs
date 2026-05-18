@@ -1,5 +1,5 @@
-﻿using Models.Shared.Common;
-using Models.Shared.Models;
+﻿using Models.Common;
+using Models.Models;
 using NetBlocks.Models;
 
 namespace Web.ApiClients;

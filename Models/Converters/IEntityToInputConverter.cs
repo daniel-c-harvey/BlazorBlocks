@@ -1,7 +1,7 @@
-using Models.Shared.Entities;
-using Models.Shared.InputModels;
+using Models.Entities;
+using Models.InputModels;
 
-namespace Models.Shared.Converters;
+namespace Models.Converters;
 
 public interface IEntityToInputConverter<TEntity, TInput>
     where TEntity : class, IEntity

@@ -8,7 +8,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\Data\Data.csproj" />
-      <ProjectReference Include="..\Models.Shared\Models.Shared.csproj" />
+      <ProjectReference Include="..\Models\Models.csproj" />
       <PackageReference Include="Cerebellum.NetBlocks" Version="10.3.3" />
     </ItemGroup>
 

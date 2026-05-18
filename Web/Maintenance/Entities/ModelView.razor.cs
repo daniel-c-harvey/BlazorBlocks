@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Components;
-using Models.Shared.Converters;
-using Models.Shared.Entities;
-using Models.Shared.InputModels;
-using Models.Shared.Models;
+using Models.Converters;
+using Models.Entities;
+using Models.InputModels;
+using Models.Models;
 using MudBlazor;
 using Web.Errors;
 using Web.Maintenance.Entities.New;

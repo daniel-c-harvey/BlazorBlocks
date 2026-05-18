@@ -1,7 +1,7 @@
-using Models.Shared.Entities;
-using Models.Shared.Models;
+using Models.Entities;
+using Models.Models;
 
-namespace Models.Shared.Converters;
+namespace Models.Converters;
 
 public interface IEntityToModelConverter<TEntity, TModel> : IConverter<TEntity, TModel>
     where TEntity : class, IEntity
