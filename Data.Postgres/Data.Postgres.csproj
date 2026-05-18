@@ -18,7 +18,7 @@
 
   <PropertyGroup>
     <PackageId>Cerebellum.BlazorBlocks.Data.Postgres</PackageId>
-    <Version>10.3.2</Version>
+    <Version>10.3.3</Version>
     <Authors>Daniel Harvey</Authors>
     <Company>Cerebellum Softworks</Company>
     <Description>PostgreSQL provider plug-in for Cerebellum.BlazorBlocks.Data. Implements IDbExceptionClassifier using Npgsql to translate EF Core write failures into structured ClassifiedDbError values. Register PostgresDbExceptionClassifier via DI in your application startup.</Description>

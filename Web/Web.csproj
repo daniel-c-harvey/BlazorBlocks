@@ -27,13 +27,13 @@
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="Cerebellum.NetBlocks" Version="10.3.0" />
+      <PackageReference Include="Cerebellum.NetBlocks" Version="10.3.3" />
       <ProjectReference Include="..\Models.Shared\Models.Shared.csproj" />
     </ItemGroup>
 
   <PropertyGroup>
     <PackageId>Cerebellum.BlazorBlocks.Web</PackageId>
-    <Version>10.3.2</Version>
+    <Version>10.3.3</Version>
     <Authors>Daniel Harvey</Authors>
     <Company>Cerebellum Softworks</Company>
     <Description>MudBlazor-based Blazor UI components for Cerebellum.NetBlocks-based applications. Includes entity management views, modals, and form scaffolding to accelerate building admin and CRUD interfaces.</Description>
