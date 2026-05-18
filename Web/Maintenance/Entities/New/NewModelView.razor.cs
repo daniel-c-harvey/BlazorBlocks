@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
-using Models.Shared.Converters;
-using Models.Shared.InputModels;
-using Models.Shared.Models;
+using Models.Converters;
+using Models.InputModels;
+using Models.Models;
 using MudBlazor;
 using NetBlocks.Models;
 using Web.ApiClients;

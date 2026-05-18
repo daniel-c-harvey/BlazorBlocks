@@ -2,8 +2,8 @@
 using System.Text.Json;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Options;
-using Models.Shared.Common;
-using Models.Shared.Models;
+using Models.Common;
+using Models.Models;
 using NetBlocks.Models;
 using Web.Errors;
 

@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Models.Shared.Common;
-using Models.Shared.Entities;
-using Models.Shared.Models;
+using Models.Common;
+using Models.Entities;
+using Models.Models;
 using NetBlocks.Models;
 
 namespace API.Controllers;

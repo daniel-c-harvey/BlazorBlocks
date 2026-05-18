@@ -1,8 +1,6 @@
+namespace Models.InputModels;
 
-namespace Models.Shared.InputModels;
-
-public interface IInputModel
-
+public class InputModelBase : IInputModel
 {
     public long Id { get; set; }
     public DateTime CreatedAt { get; set; }

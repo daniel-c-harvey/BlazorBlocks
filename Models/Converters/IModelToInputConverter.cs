@@ -1,7 +1,7 @@
-using Models.Shared.InputModels;
-using Models.Shared.Models;
+using Models.InputModels;
+using Models.Models;
 
-namespace Models.Shared.Converters;
+namespace Models.Converters;
 
 public interface IModelToInputConverter<TModel, TInput>
     where TModel : class, IModel

@@ -2,10 +2,10 @@
 using Data.Data.Repositories;
 using Data.Errors;
 using Microsoft.Extensions.Logging;
-using Models.Shared.Common;
-using Models.Shared.Converters;
-using Models.Shared.Entities;
-using Models.Shared.Models;
+using Models.Common;
+using Models.Converters;
+using Models.Entities;
+using Models.Models;
 using NetBlocks.Models;
 
 namespace Data.Managers;

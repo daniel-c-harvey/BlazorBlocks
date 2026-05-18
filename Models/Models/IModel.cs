@@ -1,5 +1,5 @@
 
-namespace Models.Shared.Models;
+namespace Models.Models;
 
 public interface IModel : IKeyed
 {

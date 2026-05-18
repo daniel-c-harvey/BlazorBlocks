@@ -1,4 +1,4 @@
-namespace Models.Shared;
+namespace Models;
 
 public interface IKeyed
 {
