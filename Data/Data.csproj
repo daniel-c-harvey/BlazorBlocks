@@ -7,13 +7,13 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="Cerebellum.NetBlocks" Version="10.3.0" />
+      <PackageReference Include="Cerebellum.NetBlocks" Version="10.3.3" />
       <ProjectReference Include="..\Models.Shared\Models.Shared.csproj" />
     </ItemGroup>
 
   <PropertyGroup>
     <PackageId>Cerebellum.BlazorBlocks.Data</PackageId>
-    <Version>10.3.2</Version>
+    <Version>10.3.3</Version>
     <Authors>Daniel Harvey</Authors>
     <Company>Cerebellum Softworks</Company>
     <Description>EF Core data layer for Cerebellum.NetBlocks-based applications. Provides base DbContext classes, entity models, and repository abstractions to wire up persistence with minimal boilerplate.</Description>
