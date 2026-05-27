@@ -12,7 +12,8 @@ where TModel : class, IModel, new()
     Task<ActionResult<ApiResultDto<TModel>>> Get(long id);
     Task<ActionResult<ApiResultDto<IEnumerable<TModel>>>> GetAll();
     Task<ActionResult<ApiResultDto<PagedResult<TModel>>>> Get([FromQuery] PagedQuery query);
-    Task<ActionResult<ApiResultDto<ItemCount>>> GetCount([FromQuery] PagedQuery query);
+    Task<ActionResult<ApiResultDto<ItemCount>>> GetCount(string? search = null);
+    Task<ActionResult<ApiResultDto<ItemCount>>> GetPageCount([FromQuery] PagedQuery query);
     Task<ActionResult<ApiResultDto<TModel>>> Post([FromBody] TModel model);
     Task<ActionResult<ApiResultDto>> Delete(long id);
 }

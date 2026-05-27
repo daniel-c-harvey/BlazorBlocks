@@ -74,7 +74,22 @@ public abstract class Manager<TEntity, TModel, TRepository, TConverter> : IManag
             return ResultContainer<IEnumerable<TModel>>.CreateFailResult(e.Message);
         }
     }
-    
+
+    public async Task<ResultContainer<int>> GetCount(Expression<Func<TEntity, bool>>? predicate = null)
+    {
+        try
+        {
+            return ResultContainer<int>.CreatePassResult
+            (
+                await Repository.CountAsync(predicate ?? (e => true))
+            );
+        }
+        catch (Exception e)
+        {
+            return ResultContainer<int>.CreateFailResult(e.Message);
+        }
+    }
+
     public async Task<ResultContainer<int>> GetPageCount(Expression<Func<TEntity, bool>> predicate, PagingParameters<TEntity> pagingParameters)
     {
         try
