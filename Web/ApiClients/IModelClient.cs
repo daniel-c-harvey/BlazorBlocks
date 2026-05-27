@@ -9,6 +9,7 @@ public interface IModelClient<TModel>
 {
     Task<ApiResult<TModel>> GetById(long id);
     Task<ApiResult<IEnumerable<TModel>>> GetAll();
+    Task<ApiResult<ItemCount>> GetCount();
     Task<ApiResult<PagedResult<TModel>>> GetByPage(PagedQuery query);
     Task<ApiResult<ItemCount>> GetPageCount(PagedQuery query);
     Task<ApiResult<TModel>> Update(TModel model);

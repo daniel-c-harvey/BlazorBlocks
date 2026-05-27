@@ -58,13 +58,6 @@ public abstract class ModelController<TEntity, TModel, TManager> : ControllerBas
     [HttpGet]
     public virtual async Task<ActionResult<ApiResultDto<PagedResult<TModel>>>> Get([FromQuery] PagedQuery query)
     {
-        return await Get(query, Manager.GetPage);
-    }
-
-    protected async Task<ActionResult<ApiResultDto<PagedResult<TModel>>>> Get(PagedQuery query, Func<Expression<Func<TEntity,bool>>, 
-        PagingParameters<TEntity>, 
-        Task<ResultContainer<PagedResult<TModel>>>> getPageFunc)
-    {
         var paging = new PagingParameters<TEntity>
         {
             Page = query.Page,
@@ -74,7 +67,7 @@ public abstract class ModelController<TEntity, TModel, TManager> : ControllerBas
         }; 
             
         var predicate = BuildSearchPredicate(query.Search);
-        var pageResult = await getPageFunc(predicate, paging);
+        var pageResult = await Manager.GetPage(predicate, paging);
             
         var result = ApiResult<PagedResult<TModel>>.From(pageResult);
         ApiResultDto<PagedResult<TModel>> dto = new(result);
@@ -83,7 +76,20 @@ public abstract class ModelController<TEntity, TModel, TManager> : ControllerBas
     }
 
     [HttpGet("count")]
-    public virtual async Task<ActionResult<ApiResultDto<ItemCount>>> GetCount([FromQuery] PagedQuery query)
+    public async Task<ActionResult<ApiResultDto<ItemCount>>> GetCount([FromQuery] string? search = null)
+    {
+        var countResult = await Manager.GetCount(BuildSearchPredicate(search));
+        
+        ApiResult<ItemCount> result = ApiResult<ItemCount>.From(countResult, new ItemCount(countResult.Value));
+        ApiResultDto<ItemCount> dto = new(result);
+        
+        return result.Success ? 
+            Ok(dto) : 
+            StatusCode(500, dto);
+    }
+
+    [HttpGet("pagecount")]
+    public virtual async Task<ActionResult<ApiResultDto<ItemCount>>> GetPageCount([FromQuery] PagedQuery query)
     {
         var paging = new PagingParameters<TEntity>
         {
@@ -92,11 +98,11 @@ public abstract class ModelController<TEntity, TModel, TManager> : ControllerBas
             OrderBy = GetSortExpression(query.Sort),
             IsDescending = query.Desc
         };
+        
         var predicate = BuildSearchPredicate(query.Search);
         var countResult = await Manager.GetPageCount(predicate, paging);
-        ApiResult<ItemCount> result = ApiResult<ItemCount>.From(countResult);
-        result.Value = new ItemCount() { Count = countResult.Value };
-            
+        
+        ApiResult<ItemCount> result = ApiResult<ItemCount>.From(countResult, new ItemCount(countResult.Value));
         ApiResultDto<ItemCount> dto = new(result);
 
         return result.Success ? 

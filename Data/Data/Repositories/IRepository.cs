@@ -16,6 +16,7 @@ where TEntity : class, IEntity
     Task UpdateAsync(TEntity entity);
     Task DeleteAsync(long id);
     Task<bool> ExistsAsync(long id);
+    Task<int> CountAsync(Expression<Func<TEntity, bool>>? predicate = null);
     
     // Paged fetching with ordering
     Task<int> GetPageCountAsync(Expression<Func<TEntity, bool>> predicate, PagingParameters<TEntity> pagingParameters);

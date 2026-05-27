@@ -68,6 +68,22 @@ where TConfig : ModelClientConfig
         }
     }
 
+    public async Task<ApiResult<ItemCount>> GetCount()
+    {
+        try
+        {
+            var uri = $"api/{config.ControllerName}/count";
+            var result = await http.GetFromJsonAsync<ApiResultDto<ItemCount>>(uri, Options)
+                         ?? throw new HttpRequestException("Failed to deserialize response");
+
+            return result.From();
+        }
+        catch (Exception e)
+        {
+            return ApiResult<ItemCount>.CreateFailResult(e.Message);
+        }
+    }
+
     public virtual async Task<ApiResult<PagedResult<TModel>>> GetByPage(PagedQuery query)
     {
         try
@@ -107,7 +123,7 @@ where TConfig : ModelClientConfig
                     { nameof(query.Desc).ToLower(), query.Desc.ToString() }
                 };
 
-            var uri = QueryHelpers.AddQueryString($"api/{config.ControllerName}/count", queryMap);
+            var uri = QueryHelpers.AddQueryString($"api/{config.ControllerName}/pagecount", queryMap);
 
             var result = await http.GetFromJsonAsync<ApiResultDto<ItemCount>>(uri, Options)
                    ?? throw new HttpRequestException("Failed to deserialize response");

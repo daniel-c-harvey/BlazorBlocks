@@ -33,7 +33,7 @@
 
   <PropertyGroup>
     <PackageId>Cerebellum.BlazorBlocks.Web</PackageId>
-    <Version>10.3.30</Version>
+    <Version>10.3.31</Version>
     <Authors>Daniel Harvey</Authors>
     <Company>Cerebellum Softworks</Company>
     <Description>MudBlazor-based Blazor UI components for Cerebellum.NetBlocks-based applications. Includes entity management views, modals, and form scaffolding to accelerate building admin and CRUD interfaces.</Description>

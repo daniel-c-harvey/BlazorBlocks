@@ -54,11 +54,16 @@ where TEntity : class, IEntity
         double rowCount = (double)(await Query.CountAsync()) / pagingParameters.PageSize;
         return (int)Math.Ceiling(rowCount);
     }
-    
+
+    public async Task<int> CountAsync(Expression<Func<TEntity, bool>>? predicate = null)
+    {
+        return predicate is null ? await Query.CountAsync() : await Query.CountAsync(predicate); 
+    }
+
     public async Task<int> GetPageCountAsync(Expression<Func<TEntity, bool>> predicate, PagingParameters<TEntity> pagingParameters)
     {
-        double rowCount = (double)(await Query.CountAsync(predicate)) / pagingParameters.PageSize;
-        return (int)Math.Ceiling(rowCount);
+        double pageCount = (double)(await Query.CountAsync(predicate)) / pagingParameters.PageSize;
+        return (int)Math.Ceiling(pageCount);
     }
     
     public virtual async Task<PagedResult<TEntity>> GetPagedAsync(PagingParameters<TEntity> pagingParameters)
