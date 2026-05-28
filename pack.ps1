@@ -28,7 +28,7 @@ foreach ($proj in $projects) {
     Write-Host "Packing $proj..."
     dotnet pack $proj -c Release -o $OutputDir
     if ($LASTEXITCODE -ne 0) {
-        throw "dotnet pack failed for $proj (exit code $LASTEXITCODE)"
+        Write-Error "dotnet pack failed for $proj (exit code $LASTEXITCODE)"
     }
 }
 
@@ -38,9 +38,10 @@ Get-ChildItem "$OutputDir/*.nupkg" | ForEach-Object {
     Write-Host "Pushing $($_.Name)..."
     dotnet nuget push $_.FullName `
         --api-key $ApiKey `
-        --source https://api.nuget.org/v3/index.json
+        --source https://api.nuget.org/v3/index.json `
+        --skip-duplicate
     if ($LASTEXITCODE -ne 0) {
-        throw "dotnet nuget push failed for $($_.Name) (exit code $LASTEXITCODE)"
+        Write-Error "dotnet nuget push failed for $($_.Name) (exit code $LASTEXITCODE)"
     }
 }
 
