@@ -13,7 +13,7 @@
 
   <PropertyGroup>
     <PackageId>Cerebellum.BlazorBlocks.Data</PackageId>
-    <Version>10.3.32</Version>
+    <!-- Version is centralized in Directory.Build.props -->
     <Authors>Daniel Harvey</Authors>
     <Company>Cerebellum Softworks</Company>
     <Description>EF Core data layer for Cerebellum.NetBlocks-based applications. Provides base DbContext classes, entity models, and repository abstractions to wire up persistence with minimal boilerplate.</Description>
