@@ -68,7 +68,7 @@ where TConfig : ModelClientConfig
         }
     }
 
-    public async Task<ApiResult<ItemCount>> GetCount()
+    public virtual async Task<ApiResult<ItemCount>> GetCount()
     {
         try
         {

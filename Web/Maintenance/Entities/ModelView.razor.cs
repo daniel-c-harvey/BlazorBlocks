@@ -92,7 +92,7 @@ public partial class ModelView<T, TModel, TEditModal, TViewModel, TConverter>  :
 
         return new GridData<T>()
         {
-            Items = ViewModel.Page?.Items.Select(TConverter.Convert) ?? Enumerable.Empty<T>(),
+            Items = ViewModel.Page?.Items?.Select(TConverter.Convert) ?? Enumerable.Empty<T>(),
             TotalItems = ViewModel.Page?.TotalCount ?? 0
         };
     }
