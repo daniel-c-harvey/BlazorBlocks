@@ -9,7 +9,7 @@
     <ItemGroup>
       <ProjectReference Include="..\Data\Data.csproj" />
       <ProjectReference Include="..\Models\Models.csproj" />
-      <PackageReference Include="Cerebellum.NetBlocks" Version="10.3.31" />
+      <PackageReference Include="Cerebellum.NetBlocks" Version="10.3.32" />
     </ItemGroup>
 
   <PropertyGroup>
